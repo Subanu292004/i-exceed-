@@ -1,0 +1,123 @@
+DART PROGRAMMING
+
+var - var is a keyword that is used to store a variable that will be inferred by the compiler based on the value assigned
+
+	void main()
+	{
+  		var a = 10;
+  		var b = "hi";
+  		var c = 90.99;
+  		var d = true;
+  		print(a.runtimeType); ---> int
+  		print(b.runtimeType); --->string
+  		print(c.runtimeType); --->double
+  		print(d.runtimeType); --->bool
+	}
+
+dynamic - it is a keyword which is used to store variables of any data type and its type can be changed in runtime
+
+	void main()
+	{
+  		dynamic a = 10;
+  		print(a.runtimeType); ---> int
+  		a = "hi";
+  		print(a.runtimeType); --->string
+ 		a = true;
+  		print(a.runtimeType); --->bool
+  		a = 10.982;
+  		print(a.runtimeType); --->double
+	}
+
+Datatypes:
+
+ 1. num - the variables can have both integer and double values. Int is converted into double when necessary
+
+	void main()
+        {
+  		num a = 92233854707.0111;
+  		print(a.runtimeType);  ---> double
+  		a = 8;
+  		print(a.runtimeType);  ---> int
+	}
+
+ 2. int
+	
+	- int represents the whole numbers up to 64 bits
+	- it varies from 2^63 to 2^63-1
+
+		void main()
+		{
+  			int a = 10;
+  			print(a);
+  			print(a.runtimeType);   ---> used to find the type of the variable
+  			int highestValue = 9223372036854775807;  ---> int can store value up to this
+  			print(highestValue);
+		}
+
+ 3. double
+
+	- double represents a 64 bit floating point number with decimal point
+	- 8 bytes of memory are allocated for double
+	- automatic casting(if int is assigned to double then it automatically cast to double datatype --> 8 to 8.0)
+
+		void main()
+		{
+ 			 double a = 92233854707.0111;
+  			 print(a);
+  			 print(a.runtimeType);
+ 			 double b = -8;
+ 			 print(b);
+		}
+
+ 4. BigInt
+
+	- BigInt is used to handle integers of any size that are limited only by memory size
+
+		void main()
+		{
+  			BigInt a = BigInt.parse('100000000000000000000');
+  			print(a);
+		}
+
+ 5. bool
+
+	- bool can store only literal values like true and false(cannot store 0,1)
+
+		void main()
+		{
+  			int a = 10;
+  			int b = 20;
+  			bool check = a>b;
+  			if(check)
+ 			 {
+ 			   print("a is greater");
+ 			 }
+ 			else
+ 			 {
+  			   print("b is greater");
+ 			 }
+		}
+
+ 6. String
+
+	- Strings are immutable
+	- Any operation that modifies the string such as concatenation actually creates a new string
+
+		void main()
+		{
+ 			 String str1 = "string within double quotes";
+ 			 String str2 = 'string within single quotes';
+ 			 String str3 = '''multiline string are within triple single 
+					  quotes......hey guys how are you doing....
+					  ........................''';
+ 			 print(str1);
+ 			 print(str2);
+ 			 print(str3);
+
+ 			 String concat = str1+str2;  ---> can concat using '+'
+ 			 print(concat);
+
+ 			 String name = "Subanu";
+ 			 String greeting = "Hi, this is $name"; ---> use $stringName to add a string to another string
+ 			 print(greeting);  ---> Hi, this is Subanu
+		}
