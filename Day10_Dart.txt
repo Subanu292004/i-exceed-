@@ -1,0 +1,182 @@
+Day 10
+
+Records:
+
+ - it allows bundling multiple objects into a single entity
+ - once a record is created the values cannot be changed
+ - records can group multiple values of different types into a single unit
+ - the number of fields in a record is determined at its creation so it cannot be altered
+
+	void main()
+	{
+  		var details = ('Subanu',21,"coimbatore");
+  		print(details.$1);
+  		print(details.$2);
+  		print(details.$3);
+	}
+
+ - it can also be named
+
+	void main()
+	{
+ 		 var details = (name: 'Subanu',age: 21,city: "coimbatore");
+ 		 print(details.name);
+ 		 print(details.age);
+ 		 print(details.city);
+	}
+
+ - we can also combine both by few not having any key and few has, so to access the one without key is by using $index
+
+	void main()
+	{
+ 		 var details = (name: 'Subanu',age: 21,city: "coimbatore","fresher");
+ 		 print(details.name);
+  		 print(details.age);
+ 		 print(details.city);
+ 		 print(details.$1);
+	}
+
+Records with function
+
+ - it accepts even if the return type is not mentioned
+
+	void main()
+	{
+ 		print(sum(5,10));
+	}
+	sum(a,b)
+	{
+ 		 return (a+b);
+	}
+
+ - to mention the return type mention it within () if it has more than one value to return before the function name
+
+	void main()
+	{
+  		var (ans,statement) = sum(5,10);
+  		print(ans);
+  		print(statement);
+	}
+	(int,String) sum(a,b)
+	{
+ 		return ((a+b),"sum is ${a+b}");
+	}
+
+ - mixed return type of parameters with named and unnamed, named parameter's return type should be enclosed within {} and that must be in the end of it
+
+	void main() 
+	{
+  		var data = details();
+  		print(data.name);
+  		print(data.state);
+  		print(data.$1);
+  		print(data.$2);
+	}
+
+	(int, String,{String name, String state}) details() 
+	{
+  		return ( 21, "Coimbatore", name: "Subanu", state:"TN");
+	}
+ 	
+  - De-structuring the return value and assigning it to a variable
+
+	void main() 
+	{
+  		var name, city, age, state = details();
+  		print(name);
+  		print(state);
+  		print(city);
+  		print(age);
+	}
+
+	(int, String,{String name,String state}) details() 
+	{
+ 		 return ( 21, "Coimbatore",name: "Subanu",state:"TN");
+	}
+
+Functional Parameters:
+
+   1. Positional Parameters:
+
+     - The order and the datatype of the parameter must match
+
+	void main()
+ 	{
+ 		details("Subanu","Reading");
+	}
+	void details(String name,String hobby)
+	{
+  		print("I'm $name and I love $hobby");
+	}
+
+   2. Default value in Positional Parameters:
+
+     - The default parameter must be enclosed within {} or []
+     - when it is enclosed within {}, we can only provide data that are not default. In the below program we should only provide the name, if we provide the hobby like details("Subanu","Watching movies"); then its an error. Error: Too many positional arguments: 1 allowed, but 2 found.
+
+	void main()
+	{
+ 		details("Subanu");
+	}
+	void details(String name,{String hobby = "Reading"})
+	{
+  		print("Hi! I'm $name and I love $hobby");
+	}
+
+	o/p: Hi! I'm Subanu and I love Reading
+
+     - when its enclosed within [], if the hobby is not passed then it prints the default parameter
+
+	void main()
+	{
+  		details("Subanu","watching movie");
+  		details("Abhi");
+	}
+	void details(String name,[String hobby = "Reading"])
+	{
+  		print("Hi! I'm $name and I love $hobby");
+	}
+
+	o/p: Hi! I'm Subanu and I love watching movie
+	     Hi! I'm Abhi and I love Reading
+
+
+
+   3. Named Parameters:
+
+     - Every parameter is passed using a name so its not necessary to pass it in a fixed order since it can be accessed using its name.
+     - the parameter must mention the datatype of value followed by ? and it must be within {}
+
+	void main()
+	{
+		 details(name:"Subanu",hobby:"Reading");
+	}
+	void details({String? name,String? hobby})
+	{
+		  print("Hi! I'm $name and I love $hobby");
+	}
+
+     - its also fine if it does not have all the fields while passing the values
+
+	void main()
+  	{
+		 details(name:"Subanu");
+	}
+	void details({String? name,String? hobby})
+	{
+		  print("Hi! I'm $name and I love $hobby");
+	}
+	
+	o/p: Hi! This is Subanu and I love null
+
+   4. Default value in Named parameter:
+
+        void main()
+	{
+		 details(name:"Subanu");
+	}
+	void details({required String? name,String hobby= "Reading"})
+	{
+		  print("Hi! I'm $name and I love $hobby");
+	}
+
