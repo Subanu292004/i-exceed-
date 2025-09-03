@@ -1,0 +1,126 @@
+Day 9
+
+Dart programming
+
+Raw String:
+
+ - considers the escape characters or interpolation markers as literal characters
+ - String strName = r"...";
+
+	void main()
+	{
+  		String name = "Subanu";
+  		String str1 = "Welcome\tHome $name";
+  		print(str1); ---> o/p: Welcome Home Subanu
+  		String str2 = r"Welcome\tHome $name";
+  		print(str2); ---> o/p: Welcome\tHome $name
+	}
+
+Map:
+
+ - Maps uses key value pair
+
+	void main()
+	{
+ 		 Map<String,dynamic> m = {"name":"Subanu","rollno":21};
+ 		 print(m["name"]);
+ 		 var map = {"name":"abc","rollno":55};
+ 		 print(map["name"]);
+  		 map["rollno"] = 14; --->They are mutable
+  		 print(map["rollno"]);
+		 map["city"]="coimbatore"; ---> we can insert a key value pair to the existing map
+  		 print(map); ---> o/p: {name: abc, rollno: 14, city: coimbatore}
+	}
+
+ Another way to create and insert values in a map
+
+	void main()
+	{
+  		Map map1 = new Map();
+  		map1[0] = "Subanu";
+  		map1[1] = 21;
+  		map1[2] = "Coimbatore";
+  		print(map1); ---> o/p: {0: Subanu, 1: 21, 2: Coimbatore}
+	}
+
+ Assigning same key in the map will store the last value that has been set
+
+	void main()
+	{
+ 		Map map = new Map();
+  		map[0]="abc";
+  		map[0]="Subanu";
+  		print(map[0]); ---> o/p: Subanu
+	}
+
+const( compile time const):
+
+  - They are immutable and their values are frozen during compilation
+  - const variable must be determined in compile time so we cannot get any input from the user
+  - it leads to performance optimization as the compiler can pre compute and embed the values to the executable
+  - Eg: const double pi = 3.14159;
+
+final( run-time const):
+ 
+  - They can be assigned only once but the assignment can happen at run time. So it means the value can be user input or reading a data from file or API
+  - But once they are initialized it cannot be changed
+  - Eg: final DateTime now = DateTime.now(); --->The exact time is only known when the program runs
+
+	import 'dart:io'; ---> import this to get input from the user
+  	void main()
+	{
+  		final String? str = stdin.readLineSync(); ---> ? is a nullable operator which assigns null to the variable when its not assigned
+  		print(str);
+	}
+
+Operators:
+
+  Arithmetic Operators:
+
+   1. Addition '+'
+   2. Subtraction '-'
+   3. Multiplication '*'
+   4. Division '/' ---> it returns the value in double in case it cannot divided completely
+   5. Integer Division '~/' ---> its return type is integer so it rounds off the value even if it has decimal point
+   6. Modulus '%'
+
+	void main()
+	{
+  		int num1 = 100;
+  		int num2 = 3;
+  		print("Addition: ${num1+num2}"); --->103
+  		print("Subtraction: ${num1-num2}"); --->97
+  		print("Multiplication: ${num1*num2}"); --->300
+  		print("Division: ${num1/num2}"); --->33.333333333333336
+  		print("Integer Division: ${num1~/num2}"); --->33
+  		print("Modulus: ${num1%num2}"); --->1
+	}
+
+   Relational or Comparison Operators:
+
+     1. Less than '<'
+     2. Greater Than '>'
+     3. Less than or equals '<='
+     4. Greater than or equals '>='
+     5. Equals '=='
+     6. Not Equals '!='
+
+  Logical Operator:
+
+     1. Logical AND '&&'
+     2. Logical OR '||'
+     3. Logical NOT '!'
+ 
+  Type Test Operators:
+
+     1. is - used to check the data type
+     2. !is
+     3. as - used for type casting
+
+   Null-aware Operator(??=) - can assign a value only if its null           and it cannot be changed after assigning it
+
+	eg: int? a; --->it is automically assigned as null
+	    int a??=5;
+	    int a??=10; ---> the value of a remains 5 since we cannot re-assign the value using ??=
+  
+
