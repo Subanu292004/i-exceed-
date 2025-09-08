@@ -1,0 +1,242 @@
+Day 12
+
+Classes, Objects and default constructor
+
+	class Employee
+	{
+  		String? name;  // instance variable
+  		String? city;
+  		int? empId;
+  
+  		Employee() // default constructor
+  		{	
+    			name = "Abhi";
+    			city = "Chennai";
+    			empId = 123;
+  		}
+  
+  		void displayDetails()
+  		{
+    			name = "Abhinaya";
+    			print("Name of the employee: $name");
+    			print("City: $city");
+    			print("Employee id: $empId");
+  		}
+	}
+	void main()
+	{
+  		Employee e = Employee(); // no need for "new" keyword
+  		e.displayDetails();
+	}
+
+'this' keyword:
+
+	class Employee
+	{
+  		String? name;  // instance variable
+  		String? city;
+  		int? empId;
+  
+  	 Employee(String name,int empid,String city) 
+  	 {
+    		this.name = name;
+    		this.city = city;
+    		this.empId = empId;
+    		print("hashcode of 'this': ${this.hashCode}");
+  	 }
+  
+  	 void displayDetails()
+  	 {
+    		print("Name of the employee: $name");
+    		print("City: $city");
+    		print("Employee id: $empId");
+  	 }
+        }
+	void main()
+	{
+  		Employee e = Employee("Subanu",21,"Coimbatore"); 
+  		e.displayDetails();
+  		print(e.name);
+  		print("hashCode of the instance 'e': ${e.hashCode}");
+	}
+
+	o/p:
+
+	hashcode of 'this': 743922319
+	Name of the employee: Subanu
+	City: Coimbatore
+	Employee id: 21
+	Subanu
+	hashCode of the instance 'e': 743922319
+
+ - we can call the methods of the class by using this keyword or directly by using its name
+
+	class Employee
+	{
+  		String? name;
+  		String? city;
+  		int? empId;
+  
+	  Employee(String name,String city,int empId)
+ 	  {
+  		  this.name = name;
+  		  this.city = city;
+  		  this.empId = empId;
+   		  this.display();
+ 	  }
+  	  void display()
+  	  {
+   		 print("Name: $name");
+  		 print("Employee Id: $empId");
+   		 print("City: $city");
+  	  }
+        }
+	void main()
+	{
+  		Employee e = Employee("Abc","Cbe",21);
+	}
+
+- lets take the below program as an example, which sets value, displays it and resets it when we want it to 
+
+	class Student
+	{
+  		String? name;
+  		String? city;
+  
+  	void setStudent(String name, String city)
+  	{
+    		this.name = name;
+    		this.city = city;
+  	}
+  
+  	void displayDetails()
+  	{
+    		print("Name: $name");
+    		print("City: $city");
+  	}
+  
+  	void reset()
+  	{
+    		name = null;
+    		city = null;
+  	}
+	}
+	void main()
+	{
+  		Student s = Student();
+  		s.setStudent("Subanu","Coimbatore");
+  		s.displayDetails();
+  		s.reset();
+ 	 	s.displayDetails();
+	}
+
+	o/p:
+
+	Name: Subanu
+	City: Coimbatore
+	Name: null
+	City: null	
+
+
+ - we can return 'this' and still the program works the same 
+
+	class Student
+	{
+  		String? name;
+  		String? city;
+  
+  	Student setStudent(String name, String city)
+  	{	
+    		this.name = name;
+    		this.city = city;
+    		return this;
+  	}
+  
+  	Student displayDetails()
+  	{
+    		print("Name: $name");
+    		print("City: $city");
+    		return this;
+  	}
+  
+  	Student reset()
+  	{
+    		name = null;
+    		city = null;
+    		return this;
+  	}
+       }
+       void main()	
+       {
+  		Student s = Student();
+  		s.setStudent("Subanu","Coimbatore");
+  		s.displayDetails();
+  		s.reset();
+  		s.displayDetails();
+       }
+
+      o/p:
+
+	Name: Subanu
+	City: Coimbatore
+	Name: null
+	City: null
+
+Method Chaining:
+
+ In the above program we can call various methods in a single line
+
+    void main()
+    {
+  	Student s = Student();
+	s.setStudent("Subanu","Coimbatore");
+	s.displayDetails().reset().displayDetails();
+    }
+
+    o/p:
+
+	Name: Subanu
+	City: Coimbatore
+	Name: null
+	City: null
+
+Set Creation:
+
+  - Set<DataType> setName = {values};
+  - Set<DataType> setname = {};
+  - Set<DataType> setName = Set();
+  - Set<DataType> setName = Set.of(<Iterable>);
+  - Set<DataType> setName = Set.from(<Iterable>);
+
+	void main()
+	{
+  		Set<String> s1 = {"hey","hi","bye"}; --->Literal
+  		Set<String> s = Set(); --->Constructor
+  		print(s1); --->{hey, hi, bye}
+  		print(s); --->{}
+  		Set s2 = Set.from(s1); 
+  		Set<String> s3 = Set.of(s1);
+ 	 	s2.add("Goodbye"); ---> its growable
+  		print(s2); --->{hey, hi, bye,Goodbye}
+  		print(s3); --->{hey, hi, bye}
+  		Set<int> s4 = Set.from({1,2,3,4});
+  		Set<int> s5 = Set.of({5,6,7,8});
+  		print(s4); --->{1,2,3,4}
+  		print(s5); --->{5,6,7,8}
+	}
+
+ - when the type and values are not mentioned in set
+
+	void main()
+	{
+  		Set s = {};
+  		print(s.runtimeType); ---> LinkedSet<dynamic>
+	}
+
+ - when nothing is mentioned, it assumes the variable as map
+
+	void main()
+	{
+  		var x = {};
+  		print(x.runtimeType); --> LinkedMap<Dynamic,Dynamic>
+	}
