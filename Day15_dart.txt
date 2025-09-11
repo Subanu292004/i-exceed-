@@ -1,0 +1,211 @@
+Day 15
+
+Abstraction:
+
+ - an abstract class must have an abstract keyword
+ - an abstract method does not require a abstract keyword
+ - an abstract class can have a defined or concrete method so it does not has to be overridden in another class which inherits this abstract class
+ - it can also have empty abstract methods which can be overridden in another class that inherits this abstract class. All such methods must be overridden in that same class
+
+	abstract class Calculate 
+	{
+  		int add(int x, int y); ---> abstract method 
+  		int sub(int x, int y);
+  		
+		void display() ---> concrete method
+		{
+    			print("Abstract class can have a defined method without overriding it");
+  		}
+	}
+
+	class operation extends Calculate 
+	{
+  		@override
+  		int add(int x, int y) => x + y;
+
+  		@override
+  		int sub(int x, int y) => x - y;
+	}
+
+	void main() 
+	{
+	  	operation obj = operation();
+  		print(obj.add(5, 10));
+  		print(obj.sub(10, 5));
+  		obj.display();
+	}
+
+Interface:
+ 
+ - interface do not have the keyword 'interface' like java
+ - these are almost similar to the dart abstraction but for interface we use 'implements' instead of 'extends'
+ - all the methods(both concrete and abstract) must be overridden in the class which implements it
+
+	abstract class Calculate 
+	{
+		  int add(int x, int y);
+  		  void display() {}
+	}
+
+	class calculating implements Calculate 
+	{
+	 	 @override
+		 int add(int x, int y) => x + y;
+
+ 		 @override
+  		 void display() 
+		{
+    			print("Hiii");
+  		}
+	}
+
+	void main() 
+	{
+		  calculating obj = calculating();
+  		  print(obj.add(5, 10));
+  		  obj.display();
+	}
+
+ - we can use both extends and implements in the same line
+ - in the below program, we have passes the objects as the arguments. we can also directly call the abstract methods using object.methodName
+
+	abstract class Shape 
+	{
+		void draw();
+	}
+
+	abstract class Resizing 
+	{
+	       void resize();
+	}
+
+	class Circle extends Shape implements Resizing 
+	{
+		  @override
+		  void draw() 
+		  {
+		       print("drawing circle");
+  		  }
+
+ 		 @override
+ 		 void resize() 
+		 {
+		    print("resizing circle");
+  		 }
+	}
+
+	class Rectangle extends Shape implements Resizing 
+	{
+		 @override
+		 void draw() 
+		 {
+		    print("drawing rectangle");
+  		 }
+
+		 @override
+  		 void resize() 
+		 {
+		    print("resizing rectangle");
+  		 }
+	}
+
+	class Canva 
+	{
+		 void drawShape(Shape s) 	
+		 {
+		    s.draw();
+  		 }
+
+		 void resizeShape(Resizing r) 
+		 {
+		    r.resize();
+  		 }
+	}
+
+	void main() 
+	{
+		  Circle c = Circle();
+ 		  c.draw();
+  		  c.resize();
+		  Rectangle r = Rectangle();
+		  Canva can = Canva();
+ 		  can.drawShape(c);
+		  can.resizeShape(c);
+		  can.drawShape(r);
+		  can.resizeShape(r);
+	}
+
+Mixin:
+ 
+ - mixin is used to add functionality to a class without using inheritance
+ - mixin and with are the keywords used
+ - in the below program, mixins are like the parent class and class Student is the child class which can access the properties like name, age from the mixin details
+
+	mixin details 
+	{
+  		String name = "Subanu";
+  		int age = 21;
+
+  		void printDetails() 
+		{
+  			print("Name : $name, Age: $age ");
+  		}
+	}
+
+	class Student with details 
+	{
+		  Student() 
+		  {
+   			 printDetails();  ---> calling the method of mixin
+  		  }
+		  void greet() 
+		  {
+   			 print("Hello $name"); ---> can access the name from mixin details
+ 		  }
+	}
+
+	void main() 
+	{
+		  Student s = Student();
+		  s.printDetails(); ---> we can call the methods of mixin using the object of the Student class. we cannot create an object for a mixin
+  		  s.greet();
+	}
+
+ - a class can 'extends' and 'with' 
+ - in the below program there are two methods with same method name called 'ShapeName()' but it prints 'square' when its called. 
+ - square is printed because it follows the hierarchy. it stacks them according to this statement 'class AllShapes extends Shape with circle, square' 
+ - since it has a hierarchy, it does not get a deadly diamond death problem
+
+	abstract class Shape 
+	{
+		  void shapeName();
+	}
+
+	mixin square 
+	{
+		  void shapeName() 
+		  {
+		      print("Square");
+  		  }
+	}
+	mixin circle 
+	{
+		  void shapeName() 
+		  {
+		      print("circle");
+  		  }
+	}
+	class AllShapes extends Shape with circle, square ---> in the stack, first it puts Shape, then circle and then square. So when shapeName() is called in AllShape class it prints 'square'
+	{
+		  void call() 
+		  {
+		      shapeName();
+  		  }
+	}
+
+	void main() 
+	{
+		  AllShapes obj = AllShapes();
+  		  obj.call();
+	}
+
