@@ -1,0 +1,199 @@
+Day 13
+
+Parameterized Constructor:
+
+- we can directly give this.name in the parameter of the constructor
+- it must be ended with a semi-colon
+
+	class Student
+	{
+  		String? name;
+  		Student(this.name);
+  		
+		display()
+  		{
+     			print(name); 
+  		}
+	}
+	void main()
+	{
+  		Student s = Student("Subanu");
+  		s.display();
+	}
+Named constructor:
+
+- named constructors are used because unlike java we cannot have the same name constructor with different parameters
+- dart cant differentiate the constructor with different parameters 
+- so named constructors are used
+
+	class Student 
+	{
+ 
+  		Student.display()
+  		{
+  		  print("displaying");
+  		}
+
+  		Student.details(String? name,int age,String city)
+  		{
+   		    print("Student Details:");
+   		    print("Name: $name");
+ 		    print("Age: $age");
+ 		    print("City: $city");
+  		}
+  
+	}
+
+	void main() 
+	{
+	  Student.display();
+	  Student.details("Subanu",21,"Coimbatore");
+	}
+
+
+Named Parameterized Constructor:
+
+- the parameter can be named 
+- the parameters must be enclosed within {} in the class 
+
+	class Student 
+	{
+ 
+  		Student.display()
+  		{
+  		  	print("displaying");
+  		}
+
+	 	Student.details({String? name,int? age,String? city})
+  		{
+  		  	 print("Student Details:");
+   			 print("Name: $name");
+  		  	 print("Age: $age");
+  		 	 print("City: $city");
+  		}
+	}
+
+	void main() 
+	{
+ 		 Student.display();
+ 		 Student.details(name:"Subanu",age:21,city: "Coimbatore");
+	}
+
+Private constructor:
+
+ - the constructor which ends with ._ is a private constructor
+ - they cannot be accessed from outside the class
+ - to access them we need a factory constructor
+
+Factory constructor:
+
+ - these constructor are used to call the private constructor from outside the class
+
+	class Student 
+	{
+  		Student._(String msg) //private constructor	
+		{
+  		   print("This is a private default constructor");
+  		}
+  		factory Student.tocall(String msg) //factory constructor
+		{
+   		   return Student._(msg);
+  		}
+	}
+
+	void main() 
+	{
+	 	  Student obj = Student.tocall("through factory constructor");
+	}
+
+Getters and setters:
+
+ - getters are used to retrieve a value and setters are used to assign a value
+ - dart has keywords like get and set so you dont have to mention () anywhere
+ - you can directly assign value like, obj.setName = "Subanu";
+ - you can get it by var name = obj.getName; or print(obj.getName);
+
+ 	class Student 
+	{
+		String _name = ""; //instance private variable
+  		int _age = 0;
+
+	   	set setName(String name) 	
+	   	{
+		    this._name = name;
+  	   	}
+
+  	  	set setAge(int age) 
+	  	{
+		    this._age = age;
+  	  	}
+
+	  	String get getName => _name;
+
+ 	  	int get getAge => _age;
+	}
+
+	void main() 
+	{
+  		Student obj = Student();
+  		obj.setName = "Subanu";
+  		obj.setAge = 21;
+  		print(obj.getName);
+  		print(obj.getAge);
+  		obj._age = 22; // even though they are private, they can be accessed within this program since its in the library. But if we are trying to access it from some other program then its not possible
+	        print(obj.getAge);
+	}
+
+ - we can also have two dart programs and accesses it
+
+  getters.dart
+
+	class Student 
+	{
+  		String _name = ""; //instance private variable
+  		int _age = 0;
+
+  		set setName(String name) 
+		{
+		    this._name = name;
+  		}
+
+		set setAge(int age) 	
+		{
+		    this._age = age;
+  		}
+
+		String get getName => _name;
+
+  		int get getAge => _age;
+	}
+
+	void main() 
+	{
+  		Student obj = Student();
+  		obj.setName = "Subanu";
+  		obj.setAge = 21;
+  		print(obj.getName);
+  		print(obj.getAge);
+  		obj._age =22; 
+		print(obj.getAge);
+	}
+
+  getters2.dart
+
+	import 'getters.dart'; //importing it and accessing the class of that program
+
+	void main() 
+	{
+		  Student obj = Student();
+  		 //obj._age = 20; ---> its an error since its a private variable
+ 		 obj.setName = "Abhi";
+ 		 obj.setAge = 25;
+ 		 print(obj.getName);
+ 		 print(obj.getAge);
+	}
+
+
+
+
+
