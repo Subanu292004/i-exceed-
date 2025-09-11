@@ -1,0 +1,258 @@
+Day 14
+
+Extensions in dart
+
+- extension is used to add functionality to the existing class without modifying it
+- syntax:
+	extension name on existingClassName
+	{
+		add methods
+	}
+- example program:
+
+	class Student 	
+	{
+  		String? name;
+  		int? age;
+  		
+		Student(this.name, this.age);
+
+  		void display() 
+		{
+    			print("Name: $name");
+    			print("Age: $age");
+  		}
+	}
+
+	extension greet on Student 
+	{
+  		String greeting() 
+		{
+    			return "Hi $name"; // can access the properties of student class
+  		}
+	}
+
+	extension demo on String?  // these are used to access the methods of Strings 
+	{  
+		String trminAndreplace(String s, String replaceWith, String replaceBy) 
+		{
+    			return s.trim().replaceAll(replaceWith, replaceBy);
+  		}
+	}
+
+	void main() 
+	{
+  		Student obj = Student("Subanu", 21);
+  		obj.display();
+  		print(obj.greeting());
+  		String s = "This is subanu";
+  		print(s.trminAndreplace(s, "subanu", "abhi"));
+	}
+
+ - extensions should not be overused
+ - extensions should only be used when its mandatory to avoid confusions
+ - it can also be access from other library/program
+ - when you are in another library, you cannot access the private properties
+ - its okay if there are no names for the extension but its better to name it to avoid conflicts or ambiguity
+
+	extension on Student ---> no name
+	{
+  		void details()
+  		{
+    
+  		}
+	}
+
+ - accessing the Student class from another program
+ - we can access the extensions from other program too
+
+ extension.dart
+
+	class Student 
+	{
+		String? name;
+  		int? age;
+
+  		Student(this.name, this.age);
+
+  		void display() 
+		{
+		    print("Name: $name");
+  		    print("Age: $age");
+  		}
+	}
+
+	extension greet on Student 	
+	{
+  		String greeting() 
+		{
+   			return "Hi $name"; // can access the properties of student class
+  		}
+	}
+
+	extension demo on String? 
+	{
+  		// these are used to access the methods of Strings
+  		String trminAndreplace(String s, String replaceWith, String replaceBy) 
+		{
+    			return s.trim().replaceAll(replaceWith, replaceBy);
+  		}
+	}
+
+
+
+
+ extension2.dart
+
+	import 'extension.dart';
+
+	extension on Student 
+	{
+  		Map details(String name, int age) 
+		{
+    			Map<dynamic, dynamic> studDetails = {};
+    			studDetails['Name'] = name;
+    			studDetails['Age'] = age;
+    			return studDetails;
+  		}
+	}
+
+	void main() 	
+	{
+  		Student obj = Student("Subanu", 21);
+  		obj.display();
+  		print(obj.greeting());
+  		String s = "This is subanu";
+  		print(s.trminAndreplace(s, "subanu", "abhi"));
+  		print(obj.details("Abhi", 20));
+	}
+
+Inheritance:
+
+ - it uses the extends to inherit the properties of the super class
+ - the default constructor of the super class gets called when the child class object gets instantiated
+
+	class Student 	//parent or super class
+	{
+		String? name, city;
+  		int? age;	
+
+  		Student() ---> gets called when the child class object is created
+		{
+		    print("This is a super class default constructor");
+  		}	
+
+		void display() 
+		{
+		    this.name = "Subanu";
+    	            print("Student name: $name");
+  		}
+	}
+
+	class StudentHostelDetails extends Student  ---> derived or child class
+	{
+		  StudentHostelDetails(String name, String city, int age) 	
+		  {
+			    this.name = name;
+    			    this.city = city;
+    			    this.age = age;
+  		  }
+		  void displayHostelDetails() 
+		  {
+			    print("Name: $name, Age: $age, City: $city");
+  		  }
+	}
+
+	void main() 	
+	{
+		  StudentHostelDetails obj = StudentHostelDetails("Subanu", "Coimbatore", 206);
+  		  obj.display();
+		  obj.displayHostelDetails();
+	}
+
+  - a child or derived class can access all the variables and methods but it cannot access the super class constructor
+  - if there is no default constructor in super class then it leads to error since the child class instantiation leads to calling the super class default constructor
+  - so to avoid that error in case of having a parameterized constructor instead of a default constructor in super class use :super(parameters) right after the child class constructor
+
+	class Student 
+	{
+		String? name, city;
+  		int? age;
+
+  		Student(this.name, this.age, this.city); ---> parameterized constructor of super class
+
+  		void display() 
+		{
+		    this.name = "Subanu";
+    		    print("In Student clas - Student name: $name, Age: $age, City: $city");
+  		}
+	}
+
+	class StudentHostelDetails extends Student 
+	{
+	        StudentHostelDetails(String name, String city, int age): super("Abhi", 25, "Bangalore") ---> calling of the parameterized constructor of the super class from the child class
+		{
+		    this.name = name;
+   	            this.city = city;
+    		    this.age = age;
+  		}
+  		void displayHostelDetails() 
+		{
+    			print("In Hostel details class - Name: $name, Age: $age, City: $city");
+  		}
+	}
+
+	void main() 
+	{
+  		StudentHostelDetails obj = StudentHostelDetails("Subanu", "Coimbatore", 21);
+  		obj.display();
+  		obj.displayHostelDetails();
+	}
+  
+Multilevel Inheritance:
+
+ - a derived class inherits another derived class forming a family tree
+ - in the below program the grandchild inherits child class which is actually a derived class which inherits the parent class
+ - now the grandchild can access both the parent and the child class
+
+
+	class Parent 
+	{
+  		String? par_name;
+
+  		Parent(this.par_name);
+
+  		void parentInfo() 
+		{
+    			print("Parent name: $par_name");
+  		}
+	}
+	class Child extends Parent 
+	{
+  		String? ch_name;
+
+  		Child(String par_name, this.ch_name) : super(par_name);
+
+  		void childInfo() 
+		{
+   			print("Child Name: $ch_name");
+  		}
+	}
+	class GrandChild extends Child 
+	{
+ 		 String? gc_name;
+
+  		 GrandChild(String par_name, String ch_name, this.gc_name): super(par_name, ch_name);
+
+  		 void grandChildInfo() 
+		{
+  			print("Grand-child Name: $gc_name");
+  		}
+	}
+	void main() 
+	{
+  		GrandChild obj = GrandChild("Grandma", "Mother", "me");
+  		obj.parentInfo();
+  		obj.childInfo();
+  		obj.grandChildInfo();
+	}
